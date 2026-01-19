@@ -1,6 +1,6 @@
 #  ScreenMatch Músicas (Desafio Alura)
 
-Aplicação Backend desenvolvida para o desafio final do curso de Persistência Java da Alura. O objetivo é modelar um sistema de gerenciamento de músicas e artistas, aplicando conceitos avançados de Banco de Dados Relacional e Orientação a Objetos.
+Aplicação Backend em desenvolvimento para o desafio final do curso de Persistência Java da Alura. O objetivo é modelar um sistema de gerenciamento de músicas e artistas, aplicando conceitos avançados de Banco de Dados Relacional e Orientação a Objetos.
 
 ##  Sobre o Projeto
 
