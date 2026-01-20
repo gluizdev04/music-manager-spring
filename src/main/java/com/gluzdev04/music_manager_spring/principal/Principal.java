@@ -1,11 +1,16 @@
 package com.gluzdev04.music_manager_spring.principal;
 
+import com.gluzdev04.music_manager_spring.model.TipoArtista;
+import com.gluzdev04.music_manager_spring.service.ArtistaService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
 @Component
 public class Principal {
+    @Autowired
+    ArtistaService artistaService;
     Scanner entrada = new Scanner(System.in);
 
     public void exibirMenu() {
@@ -29,7 +34,7 @@ public class Principal {
 
             switch (opcao) {
                 case 1:
-                    //cadastrarArtista();
+                    cadastrarArtista();
                     break;
                 case 2:
                     //cadastrarMusica();
@@ -47,6 +52,21 @@ public class Principal {
                     sistemaRodando = false;
                     break;
             }
+        }
+    }
+
+    public void cadastrarArtista(){
+        System.out.print("Nome do artista: ");
+        var nomeArtista = entrada.nextLine();
+        System.out.print("Tipo de artista (solo, dupla ou banda): ");
+        var tipoArtista = entrada.nextLine();
+
+        try {
+            TipoArtista tipoArtistaFromEnum = TipoArtista.fromEnum(tipoArtista);
+            artistaService.cadastrarArtista(nomeArtista, tipoArtistaFromEnum);
+            System.out.println("Usuário cadastrado com sucesso!");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Erro: Tipo inválido! Digite apenas: solo, dupla ou banda.");
         }
     }
 
