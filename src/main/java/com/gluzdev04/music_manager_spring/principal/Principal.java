@@ -1,12 +1,14 @@
 package com.gluzdev04.music_manager_spring.principal;
 
 import com.gluzdev04.music_manager_spring.model.Artista;
+import com.gluzdev04.music_manager_spring.model.Musica;
 import com.gluzdev04.music_manager_spring.model.TipoArtista;
 import com.gluzdev04.music_manager_spring.repository.MusicaRepository;
 import com.gluzdev04.music_manager_spring.service.ArtistaService;
 import com.gluzdev04.music_manager_spring.service.MusicaService;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -51,7 +53,7 @@ public class Principal {
                     cadastrarMusica();
                     break;
                 case 3:
-                    //listarMusicas();
+                    listarMusicas();
                     break;
                 case 4:
                     //buscarMusicaPorArtista();
@@ -93,5 +95,12 @@ public class Principal {
         } catch (NoSuchElementException e) {
             System.out.println("Usuário não encontrado");
         }
+    }
+
+    private void listarMusicas() {
+        List<Musica> todasAsMusicas = musicaService.listarTodasAsMusicas();
+        todasAsMusicas.forEach(m -> {
+            System.out.println("Música: " + m.getNome() + " | Artista: " + m.getArtista().getNome());
+        });
     }
 }
