@@ -24,4 +24,9 @@ public class MusicaService {
         List<Musica> musicasEncontradas = musicaRepository.findAll();
         return musicasEncontradas;
     }
+
+    public List<Musica> buscarMusicasPorNomeDoArtista(String nomeArtista) {
+        List<Musica> musicasEncontrada = musicaRepository.buscarMusicasPeloNomeDoArtista(nomeArtista);
+        return musicasEncontrada;
+    }
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.Scanner;
 
 @Component
@@ -42,8 +43,13 @@ public class Principal {
                             0 - Sair
                     """;
             System.out.println(menu);
-            var opcao = entrada.nextInt();
-            entrada.nextLine();
+            var opcao = -1;
+            try {
+                var input = entrada.nextLine();
+                opcao = Integer.parseInt(input);
+            } catch (Exception e) {
+                opcao = -1;
+            }
 
             switch (opcao) {
                 case 1:
@@ -56,13 +62,16 @@ public class Principal {
                     listarMusicas();
                     break;
                 case 4:
-                    //buscarMusicaPorArtista();
+                    buscarMusicaPorArtista();
                     break;
                 case 5:
                     //pesquisarDadosSobreUmArtista();
                     break;
                 case 0:
                     sistemaRodando = false;
+                    break;
+                default:
+                    System.out.println("Digite uma opção válida!");
                     break;
             }
         }
@@ -103,4 +112,17 @@ public class Principal {
             System.out.println("Música: " + m.getNome() + " | Artista: " + m.getArtista().getNome());
         });
     }
+
+    private void buscarMusicaPorArtista() {
+        System.out.print("Deseja ver as músicas de qual banda ou artista? ");
+        var nomeArtista = entrada.nextLine();
+        List<Musica> musicas = musicaService.buscarMusicasPorNomeDoArtista(nomeArtista);
+        if(musicas.isEmpty()){
+            System.out.println("O artista ou banda não foi cadastrado ou não possui músicas vinculadas.");
+        }
+        musicas.forEach(m -> {
+            System.out.println("Música: " + m.getNome() + " | Artista: " + m.getArtista().getNome());
+        });
+    }
+
 }
