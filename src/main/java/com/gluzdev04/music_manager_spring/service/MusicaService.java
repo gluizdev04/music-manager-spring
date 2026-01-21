@@ -1,0 +1,20 @@
+package com.gluzdev04.music_manager_spring.service;
+
+import com.gluzdev04.music_manager_spring.model.Artista;
+import com.gluzdev04.music_manager_spring.model.Musica;
+import com.gluzdev04.music_manager_spring.repository.MusicaRepository;
+import org.springframework.stereotype.Service;
+
+@Service
+public class MusicaService {
+    private MusicaRepository musicaRepository;
+
+    public MusicaService(MusicaRepository musicaRepository) {
+        this.musicaRepository = musicaRepository;
+    }
+
+    public void cadastrarMusica(String nome, Artista artista){
+        Musica musica = new Musica(nome, artista);
+        musicaRepository.save(musica);
+    }
+}

@@ -1,16 +1,27 @@
 package com.gluzdev04.music_manager_spring.principal;
 
+import com.gluzdev04.music_manager_spring.model.Artista;
 import com.gluzdev04.music_manager_spring.model.TipoArtista;
+import com.gluzdev04.music_manager_spring.repository.MusicaRepository;
 import com.gluzdev04.music_manager_spring.service.ArtistaService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.gluzdev04.music_manager_spring.service.MusicaService;
 import org.springframework.stereotype.Component;
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 @Component
 public class Principal {
-    @Autowired
-    ArtistaService artistaService;
+    private final MusicaRepository musicaRepository;
+    private ArtistaService artistaService;
+    private MusicaService musicaService;
+
+    public Principal(ArtistaService artistaService, MusicaService musicaService, MusicaRepository musicaRepository) {
+        this.artistaService = artistaService;
+        this.musicaService = musicaService;
+        this.musicaRepository = musicaRepository;
+    }
+
     Scanner entrada = new Scanner(System.in);
 
     public void exibirMenu() {
@@ -37,7 +48,7 @@ public class Principal {
                     cadastrarArtista();
                     break;
                 case 2:
-                    //cadastrarMusica();
+                    cadastrarMusica();
                     break;
                 case 3:
                     //listarMusicas();
@@ -55,7 +66,7 @@ public class Principal {
         }
     }
 
-    public void cadastrarArtista(){
+    public void cadastrarArtista() {
         System.out.print("Nome do artista: ");
         var nomeArtista = entrada.nextLine();
         System.out.print("Tipo de artista (solo, dupla ou banda): ");
@@ -70,4 +81,17 @@ public class Principal {
         }
     }
 
+    private void cadastrarMusica() {
+        System.out.print("Nome da música: ");
+        var nomeMusica = entrada.nextLine();
+        System.out.print("Artista: ");
+        var artistaNome = entrada.nextLine();
+
+        try {
+            Artista artistaMusicaBuscado = artistaService.buscarArtistaPorNome(artistaNome);
+            musicaService.cadastrarMusica(nomeMusica, artistaMusicaBuscado);
+        } catch (NoSuchElementException e) {
+            System.out.println("Usuário não encontrado");
+        }
+    }
 }
