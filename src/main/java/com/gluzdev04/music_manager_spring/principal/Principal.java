@@ -38,7 +38,8 @@ public class Principal {
                             2 - Cadastrar músicas
                             3 - Listar músicas
                             4 - Buscar músicas por artistas
-                            5 - Pesquisar dados sobre um artista
+                            5 - Deletar uma música cadastrada
+                            6 - Pesquisar dados sobre um artista
                     
                             0 - Sair
                     """;
@@ -65,6 +66,9 @@ public class Principal {
                     buscarMusicaPorArtista();
                     break;
                 case 5:
+                    deletarMusicaCadastrada();
+                    break;
+                case 6:
                     //pesquisarDadosSobreUmArtista();
                     break;
                 case 0:
@@ -88,7 +92,7 @@ public class Principal {
             artistaService.cadastrarArtista(nomeArtista, tipoArtistaFromEnum);
             System.out.println("Usuário cadastrado com sucesso!");
         } catch (IllegalArgumentException e) {
-            System.out.println("Erro: Tipo inválido! Digite apenas: solo, dupla ou banda.");
+            System.out.println("Erro: " + e.getMessage());
         }
     }
 
@@ -101,8 +105,9 @@ public class Principal {
         try {
             Artista artistaMusicaBuscado = artistaService.buscarArtistaPorNome(artistaNome);
             musicaService.cadastrarMusica(nomeMusica, artistaMusicaBuscado);
+            System.out.println("Música cadastrada com sucesso");
         } catch (NoSuchElementException e) {
-            System.out.println("Usuário não encontrado");
+            System.out.println("Artista não encontrado");
         }
     }
 
@@ -123,6 +128,18 @@ public class Principal {
         musicas.forEach(m -> {
             System.out.println("Música: " + m.getNome() + " | Artista: " + m.getArtista().getNome());
         });
+    }
+
+    private void deletarMusicaCadastrada() {
+        System.out.print("Digite o nome da música que deseja deletar: ");
+        var musicaParaDeletar = entrada.nextLine();
+        boolean conseguiuDeletar = musicaService.deletarMusica(musicaParaDeletar);
+
+        if(conseguiuDeletar){
+            System.out.println("Música deletada com sucesso!");
+        } else {
+            System.out.println("Música não encontrada");
+        }
     }
 
 }

@@ -14,6 +14,11 @@ public class ArtistaService {
     ArtistaRepository artistaRepository;
 
     public void cadastrarArtista(String nome, TipoArtista tipoArtista){
+        Optional<Artista> artistaBuscado = artistaRepository.buscarArtistaPorNome(nome);
+        if(artistaBuscado.isPresent()){
+            throw new IllegalArgumentException("Este artista já foi cadastrado anteriormente!");
+        }
+
         Artista artista = new Artista(nome, tipoArtista);
         artistaRepository.save(artista);
     }
