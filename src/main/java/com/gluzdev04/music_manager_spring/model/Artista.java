@@ -15,7 +15,7 @@ public class Artista {
     @OneToMany(mappedBy = "artista", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Musica> musicas;
 
-    public Artista(){
+    public Artista() {
     }
 
     public Artista(String nome, TipoArtista tipoArtista) {

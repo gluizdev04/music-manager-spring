@@ -5,6 +5,7 @@ import com.gluzdev04.music_manager_spring.model.Musica;
 import com.gluzdev04.music_manager_spring.model.TipoArtista;
 import com.gluzdev04.music_manager_spring.repository.MusicaRepository;
 import com.gluzdev04.music_manager_spring.service.ArtistaService;
+import com.gluzdev04.music_manager_spring.service.ConsultaGeminiService;
 import com.gluzdev04.music_manager_spring.service.MusicaService;
 import org.springframework.stereotype.Component;
 
@@ -18,11 +19,16 @@ public class Principal {
     private final MusicaRepository musicaRepository;
     private ArtistaService artistaService;
     private MusicaService musicaService;
+    private ConsultaGeminiService consultaGeminiService;
 
-    public Principal(ArtistaService artistaService, MusicaService musicaService, MusicaRepository musicaRepository) {
+    public Principal(MusicaRepository musicaRepository,
+                     ArtistaService artistaService,
+                     MusicaService musicaService,
+                     ConsultaGeminiService consultaGeminiService) {
+        this.musicaRepository = musicaRepository;
         this.artistaService = artistaService;
         this.musicaService = musicaService;
-        this.musicaRepository = musicaRepository;
+        this.consultaGeminiService = consultaGeminiService;
     }
 
     Scanner entrada = new Scanner(System.in);
@@ -73,7 +79,7 @@ public class Principal {
                     deletarMusicaCadastrada();
                     break;
                 case 7:
-                    //pesquisarSobreUmArtista();
+                    pesquisarSobreUmArtista();
                     break;
                 case 0:
                     sistemaRodando = false;
@@ -157,6 +163,14 @@ public class Principal {
         } else {
             System.out.println("Música não encontrada");
         }
+    }
+
+    private void pesquisarSobreUmArtista() {
+        System.out.print("Digite o nome do artista(s) ou banda que deseja pesquisar: ");
+        var nomeParaPesquisa = entrada.nextLine();
+
+        String informacao = consultaGeminiService.obterInformacao(nomeParaPesquisa);
+        System.out.println(informacao);
     }
 
 }
