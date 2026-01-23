@@ -3,8 +3,10 @@ package com.gluzdev04.music_manager_spring.service;
 import com.gluzdev04.music_manager_spring.model.Artista;
 import com.gluzdev04.music_manager_spring.model.TipoArtista;
 import com.gluzdev04.music_manager_spring.repository.ArtistaRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -13,9 +15,9 @@ public class ArtistaService {
     @Autowired
     ArtistaRepository artistaRepository;
 
-    public void cadastrarArtista(String nome, TipoArtista tipoArtista){
+    public void cadastrarArtista(String nome, TipoArtista tipoArtista) {
         Optional<Artista> artistaBuscado = artistaRepository.buscarArtistaPorNome(nome);
-        if(artistaBuscado.isPresent()){
+        if (artistaBuscado.isPresent()) {
             throw new IllegalArgumentException("Este artista já foi cadastrado anteriormente!");
         }
 
@@ -30,5 +32,12 @@ public class ArtistaService {
         } else {
             throw new NoSuchElementException("Usuário não cadastrado");
         }
+    }
+
+    @Transactional
+    public boolean deletarArtista(String nomeDoArtista) {
+        int linhasAfetadas = artistaRepository.deletarArtistaPorNome(nomeDoArtista);
+
+        return linhasAfetadas > 0;
     }
 }

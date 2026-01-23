@@ -38,8 +38,9 @@ public class Principal {
                             2 - Cadastrar músicas
                             3 - Listar músicas
                             4 - Buscar músicas por artistas
-                            5 - Deletar uma música cadastrada
-                            6 - Pesquisar dados sobre um artista
+                            5 - Deletar artistas cadastrados
+                            6 - Deletar música cadastrada
+                            7 - Pesquisar dados sobre um artista
                     
                             0 - Sair
                     """;
@@ -66,10 +67,13 @@ public class Principal {
                     buscarMusicaPorArtista();
                     break;
                 case 5:
-                    deletarMusicaCadastrada();
+                    deletarArtistaCadastrado();
                     break;
                 case 6:
-                    //pesquisarDadosSobreUmArtista();
+                    deletarMusicaCadastrada();
+                    break;
+                case 7:
+                    //pesquisarSobreUmArtista();
                     break;
                 case 0:
                     sistemaRodando = false;
@@ -122,7 +126,7 @@ public class Principal {
         System.out.print("Deseja ver as músicas de qual banda ou artista? ");
         var nomeArtista = entrada.nextLine();
         List<Musica> musicas = musicaService.buscarMusicasPorNomeDoArtista(nomeArtista);
-        if(musicas.isEmpty()){
+        if (musicas.isEmpty()) {
             System.out.println("O artista ou banda não foi cadastrado ou não possui músicas vinculadas.");
         }
         musicas.forEach(m -> {
@@ -130,12 +134,25 @@ public class Principal {
         });
     }
 
+    private void deletarArtistaCadastrado() {
+        System.out.print("Digite o nome do(s) artista(s) ou banda: ");
+        var nomeDoArtista = entrada.nextLine();
+
+        boolean conseguiuDeletar = artistaService.deletarArtista(nomeDoArtista);
+
+        if (conseguiuDeletar) {
+            System.out.println("Artista(s) deletado(s) com sucesso!");
+        } else {
+            System.out.println("Artista(s) ou banda não encontrado(s).");
+        }
+    }
+
     private void deletarMusicaCadastrada() {
         System.out.print("Digite o nome da música que deseja deletar: ");
         var musicaParaDeletar = entrada.nextLine();
         boolean conseguiuDeletar = musicaService.deletarMusica(musicaParaDeletar);
 
-        if(conseguiuDeletar){
+        if (conseguiuDeletar) {
             System.out.println("Música deletada com sucesso!");
         } else {
             System.out.println("Música não encontrada");
