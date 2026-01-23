@@ -115,10 +115,13 @@ public class Principal {
         try {
             Artista artistaMusicaBuscado = artistaService.buscarArtistaPorNome(artistaNome);
             musicaService.cadastrarMusica(nomeMusica, artistaMusicaBuscado);
-            System.out.println("Música cadastrada com sucesso");
+            System.out.println("Música cadastrada com sucesso!");
         } catch (NoSuchElementException e) {
-            System.out.println("Artista não encontrado");
+            System.out.println("Erro: " + e.getMessage());
+        } catch (IllegalArgumentException e) {
+            System.out.println("Erro: " + e.getMessage());
         }
+
     }
 
     private void listarMusicas() {

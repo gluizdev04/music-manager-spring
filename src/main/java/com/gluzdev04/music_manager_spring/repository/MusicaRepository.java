@@ -14,4 +14,7 @@ public interface MusicaRepository extends JpaRepository<Musica, Long> {
     @Modifying
     @Query("DELETE FROM Musica m WHERE m.nome ILIKE :nomeDaMusica")
     int deletarMusicaPeloNome(String nomeDaMusica);
+
+    @Query("SELECT m FROM Musica m WHERE m.nome ILIKE :nome")
+    List<Musica> buscarMusicasPeloNome(String nome);
 }
