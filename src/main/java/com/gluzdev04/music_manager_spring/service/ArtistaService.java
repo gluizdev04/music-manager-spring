@@ -30,7 +30,7 @@ public class ArtistaService {
         if (artistaBuscado.isPresent()) {
             return artistaBuscado.get();
         } else {
-            throw new NoSuchElementException("Usuário não cadastrado");
+            throw new NoSuchElementException("Artista não cadastrado");
         }
     }
 
