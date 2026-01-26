@@ -4,7 +4,7 @@ Aplicação Backend em desenvolvimento para o desafio final do curso de Persist�
 
 ##  Sobre o Projeto
 
-O **ScreenMatch Músicas** permite o cadastro e organização de uma discografia. O foco principal foi trabalhar o relacionamento **Um-para-Muitos** (Um Artista tem várias Músicas) e aprofundar o conhecimento em JPA (Java Persistence API).
+O **Music Manager** permite o cadastro e organização de uma discografia. O foco principal foi trabalhar o relacionamento **Um-para-Muitos** (Um Artista tem várias Músicas) e aprofundar o conhecimento em JPA (Java Persistence API).
 
 O sistema roda via terminal (console), oferecendo um menu interativo para o usuário.
 
@@ -18,15 +18,15 @@ O sistema roda via terminal (console), oferecendo um menu interativo para o usu�
   - Visualização de todas as faixas cadastradas no banco.
 - **Buscas Avançadas (JPQL):**
   - Busca de músicas por artista.
-  - (Futuro) Pesquisa de dados sobre artistas.
+  - Pesquisa de dados sobre artistas.
 
 ##  Tecnologias Utilizadas
 
 - **Java 21**
 - **Spring Boot 4**
 - **Spring Data JPA**
-- **PostgreSQL** (Banco de Dados)
-- **Hibernate** (ORM)
+- **PostgreSQL** 
+- **Hibernate** 
 - **Maven**
 
 ##  Como rodar o projeto
